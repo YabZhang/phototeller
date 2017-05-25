@@ -3,3 +3,9 @@
 
 # .pyc
 *.pyc
+
+# buildout
+buildout.cfg
+
+# .DS_store
+.DS_Store
