@@ -1,34 +1,92 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>{% block title %} Bootstrap 101 Template {% end %}</title>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{ static_url('images/cat_bat.ico') }}">
 
-    <!-- Bootstrap -->
+    <title>{% block title %}Cover Template for Bootstrap{% end %}</title>
+
+    <!-- Bootstrap core CSS -->
     <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
 
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{ static_url('css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ static_url('css/cover.css') }}" rel="stylesheet">
+
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+
   <body>
 
-    {% block body %}
-    <h1>你好，世界！</h1>
-    {% end %}
+    <div class="site-wrapper">
 
-    {% block footer %}
-    {% end %}
+      <div class="site-wrapper-inner">
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <div class="cover-container">
+
+            {% block header%}
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Cover</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="#">Home</a></li>
+                  <li><a href="#">Features</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+            {% end %}
+
+            {% block content %}
+          <div class="inner cover">
+            <h1 class="cover-heading">{% block cover-heading %}Cover your page{% end %}</h1>
+            <p class="lead">
+                {% block lead-content %}
+                Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.
+                {% end %}
+            </p>
+                {% block photo-form %}
+            <p class="lead">
+              <a href="#" class="btn btn-lg btn-default">Learn more</a>
+            </p>
+                {% end %}
+
+          </div>
+            {% end %}
+
+            {% block footer %}
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="#">Guessme</a>.</p>
+            </div>
+          </div>
+            {% end %}
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ static_url('js/jquery.min.js') }}"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ static_url('js/bootstrap.min.js') }}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ static_url('js/ie10-viewport-bug-workaround.js') }}"></script>
   </body>
 </html>

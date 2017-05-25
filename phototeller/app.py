@@ -6,11 +6,16 @@ TODO: DOC
 """
 
 import os
+import logging
 
 from tornado.web import RequestHandler, Application
 from tornado.ioloop import IOLoop
 from tornado.options import define, options, parse_command_line
 
+logging.basicConfig(
+    level=logging.INFO,
+    datefmt="%Y-%m-%d %H:%M:%S",
+    format="[%(name)s][%(levelname)s][%(asctime)s]: %(message)s")
 
 define('debug', type=bool, default=True, help='server run in debug mode; default debug=True')
 define('port', type=int, default=8080, help='server run on the given port; default port=8080')
@@ -29,9 +34,18 @@ class MainHandler(BaseHandler):
         """ get """
         self.render('index.html')
 
-    def post(self, *args, **kwargs):
+    def post(self):
         """ post """
-        pass
+        file_name = []
+        print('request: ', self.request)
+        if self.request.files:
+            for field_name, files in self.request.files.itmes():
+                for info in files:
+                    filename, content_type = info['filename'], info['content_type']
+                    body = info['body']
+                    print('POST "%s" "%s" %d bytes',
+                                 filename, content_type, len(body))
+        self.redirect('/')
 
 
 def url_collector():

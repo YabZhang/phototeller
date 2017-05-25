@@ -1,6 +1,6 @@
 # PhototTeller
 
-Let me tell you the story bebind photoes... \ (^. ^) /
+Let me show you the story bebind photoes... \ (^. ^) /
 
 # Li
 
@@ -18,3 +18,4 @@ pass
 1. use CDN instead of local statc source;  refer to: https://getbootstrap.com/getting-started/
 2. oauth authentification; google oauth
 3. deployment config file; nginx, supervisor
+4. upload form;
