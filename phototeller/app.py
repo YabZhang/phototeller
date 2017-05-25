@@ -27,7 +27,7 @@ class MainHandler(BaseHandler):
 
     def get(self, *args, **kwargs):
         """ get """
-        self.render('base.html')
+        self.render('index.html')
 
     def post(self, *args, **kwargs):
         """ post """
