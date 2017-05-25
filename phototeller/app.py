@@ -5,6 +5,8 @@
 TODO: DOC
 """
 
+import os
+
 from tornado.web import RequestHandler, Application
 from tornado.ioloop import IOLoop
 from tornado.options import define, options, parse_command_line
@@ -25,7 +27,7 @@ class MainHandler(BaseHandler):
 
     def get(self, *args, **kwargs):
         """ get """
-        self.write("helloworld\n")
+        self.render('base.html')
 
     def post(self, *args, **kwargs):
         """ post """
@@ -51,8 +53,8 @@ def main():
         'debug': options.debug,
         'cookie_secret': '__guessme__',
         'xsrf_token': '__guessme__',
-        'static_path_name': options.static_path,
-        'template_path_name': options.template_path
+        'static_path': os.path.join(os.path.dirname(__file__), options.static_path),
+        'template_path': os.path.join(os.path.dirname(__file__), options.template_path)
     }
 
     app = Application(urls, **settings)
