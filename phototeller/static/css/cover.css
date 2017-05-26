@@ -161,3 +161,11 @@ body {
     width: 700px;
   }
 }
+
+.panel-body {
+  font-size: medium;
+  text-shadow: none;
+  color: #333;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}

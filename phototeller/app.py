@@ -21,31 +21,82 @@ define('debug', type=bool, default=True, help='server run in debug mode; default
 define('port', type=int, default=8080, help='server run on the given port; default port=8080')
 define('static_path', type=str, default='static')
 define('template_path', type=str, default='templates')
+define('image_save_path', type=str, default='/tmp')
 
 
 class BaseHandler(RequestHandler):
-    """ Base Request Class """
+    """ TODO: Base Request Class """
     pass
 
 
 class MainHandler(BaseHandler):
 
-    def get(self, *args, **kwargs):
+    def get(self):
         """ get """
-        self.render('index.html')
+        kwargs = {}
+        kwargs['status'] = self.get_argument('status', False)
+        kwargs['result'] = self.get_argument('result', '')
+        kwargs['error'] = self.get_argument('error', '')
+        self.render('index.html', **kwargs)
 
     def post(self):
         """ post """
-        file_name = []
-        print('request: ', self.request)
+
+        result='',
+        error='',
+        status=False
+
         if self.request.files:
-            for field_name, files in self.request.files.itmes():
+            for field_name, files in self.request.files.items():
                 for info in files:
                     filename, content_type = info['filename'], info['content_type']
                     body = info['body']
-                    print('POST "%s" "%s" %d bytes',
-                                 filename, content_type, len(body))
-        self.redirect('/')
+                    break    # 当前仅处理一份文件
+
+            logging.info('%s %s %d bytes' % (filename, content_type, len(body)))
+            if self._is_valid_image_file(content_type):
+                result = self._handle_image_file(filename, body, save=True)
+                status = True
+            else:
+                error = 'Invalid File Format! Please upload an image file!'
+
+        else:
+            error = 'No file found! Please upload an image file!'
+
+        return self.render("index.html", status=status, result=result, error=error)
+
+    def _is_valid_image_file(self, content_type):
+        """ 检查文件类型是否匹配，这里只简单处理了文件类型 """
+        if 'image' not in content_type:
+            return False
+        return True
+
+    def _process_image_data(self, filename, image_data):
+        """ TODO: 默认的图片处理逻辑, 在此处添加处理逻辑 """
+        result = "filename: %s, length %s bytes" % (filename, len(image_data))
+        return result
+
+    def _handle_image_file(self, filename, raw_data, save=True):
+        """ body 为文件原始数据，得到实时计算结果；或存储数据到文件 """
+
+        result = self._process_image_data(filename, raw_data)
+
+        if save:
+            if os.path.exists(options.image_save_path) and \
+                    os.path.isdir(options.image_save_path):
+                image_path = os.path.join(options.image_save_path, filename)
+            else:
+                image_path = os.path.join("/tmp", filename)
+
+            try:
+                with open(image_path, 'wb') as f:
+                    f.write(raw_data)
+            except Exception as e:
+                logging.exception(e)
+
+        return result
+
+
 
 
 def url_collector():

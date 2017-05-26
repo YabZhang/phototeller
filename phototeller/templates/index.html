@@ -2,23 +2,40 @@
 
 {% block title %} Phototeller {% end %}
 
+
+
 {% block cover-heading %}Upload your photo{% end %}
 
 {% block lead-content %}
-Let me show you the story bebind the photo... \ (^. ^) /
+Let me show you the story bebind photoes... \ (^. ^) /
 {% end %}
 
 {% block photo-form %}
-<Form aciont="/" target="_blank" enctype="multipart/form-data" method="POST" >
+<Form aciont="/" enctype="multipart/form-data" method="POST" >
 <div class="row">
   <div class="col-lg-8 col-lg-offset-2">
     <div class="input-group">
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit">Go!</button>
       </span>
-      <input formtarget="image" type="file" class="form-control" placeholder="Search for...">
+      <input class="form-control" type="file" accept="image/*" name="file">
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
 </div>
 </Form>
+<br/>
+{% if result or error %}
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2">
+    <div class="panel {{ 'panel-success' if status else 'panel-danger' }}">
+        <div class="panel-heading">Result:  </div>
+        <div class="panel-body result">
+            <div class="well well-lg">
+                {{ result if status else error }}
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% end %}
 {% end %}
