@@ -55,7 +55,7 @@ class MainHandler(BaseHandler):
 
             logging.info('%s %s %d bytes' % (filename, content_type, len(body)))
             if self._is_valid_image_file(content_type):
-                result = self._handle_image_file(filename, body, save=True)
+                result = self._handle_image_file(filename, body)
                 status = True
             else:
                 error = 'Invalid File Format! Please upload an image file!'
