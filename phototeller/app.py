@@ -76,8 +76,8 @@ class MainHandler(BaseHandler):
         result = "filename: %s, length %s bytes" % (filename, len(image_data))
         return result
 
-    def _handle_image_file(self, filename, raw_data, save=True):
-        """ body 为文件原始数据，得到实时计算结果；或存储数据到文件 """
+    def _handle_image_file(self, filename, raw_data, save=False):
+        """ body 为文件原始数据，得到实时计算结果；或存储数据到文件; 默认不存储 """
 
         result = self._process_image_data(filename, raw_data)
 
