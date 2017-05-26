@@ -1,4 +1,4 @@
-# PhototTeller
+# Phototeller
 
 Let me show you the story bebind photoes... \ (^. ^) /
 
